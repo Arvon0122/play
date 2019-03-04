@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csj.ceshi.dao.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.csj.ceshi.pojo.Student">
+        <id column="STUID" jdbcType="DECIMAL" property="stuid"/>
+        <result column="STUNAME" jdbcType="VARCHAR" property="stuname"/>
+        <result column="STUAGE" jdbcType="DECIMAL" property="stuage"/>
+        <result column="STUSEX" jdbcType="VARCHAR" property="stusex"/>
+        <result column="HEIGHT" jdbcType="VARCHAR" property="height"/>
+        <result column="WEIGHT" jdbcType="VARCHAR" property="weight"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    STUID, STUNAME, STUAGE, STUSEX, HEIGHT, WEIGHT
+  </sql>
+    <select id="getList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from STUDENT
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from STUDENT
+        where STUID = #{stuid,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from STUDENT
+    where STUID = #{stuid,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.csj.ceshi.pojo.Student">
+    insert into STUDENT (STUID, STUNAME, STUAGE, 
+      STUSEX, HEIGHT, WEIGHT
+      )
+    values (student_seq.nextval, #{stuname,jdbcType=VARCHAR}, #{stuage,jdbcType=DECIMAL},
+      #{stusex,jdbcType=VARCHAR}, #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.csj.ceshi.pojo.Student">
+        insert into STUDENT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            STUID,
+            <if test="stuname != null">
+                STUNAME,
+            </if>
+            <if test="stuage != null">
+                STUAGE,
+            </if>
+            <if test="stusex != null">
+                STUSEX,
+            </if>
+            <if test="height != null">
+                HEIGHT,
+            </if>
+            <if test="weight != null">
+                WEIGHT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            student_seq.nextval,
+            <if test="stuname != null">
+                #{stuname,jdbcType=VARCHAR},
+            </if>
+            <if test="stuage != null">
+                #{stuage,jdbcType=DECIMAL},
+            </if>
+            <if test="stusex != null">
+                #{stusex,jdbcType=VARCHAR},
+            </if>
+            <if test="height != null">
+                #{height,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.csj.ceshi.pojo.Student">
+        update STUDENT
+        <set>
+            <if test="stuname != null">
+                STUNAME = #{stuname,jdbcType=VARCHAR},
+            </if>
+            <if test="stuage != null">
+                STUAGE = #{stuage,jdbcType=DECIMAL},
+            </if>
+            <if test="stusex != null">
+                STUSEX = #{stusex,jdbcType=VARCHAR},
+            </if>
+            <if test="height != null">
+                HEIGHT = #{height,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                WEIGHT = #{weight,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where STUID = #{stuid,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.csj.ceshi.pojo.Student">
+    update STUDENT
+    set STUNAME = #{stuname,jdbcType=VARCHAR},
+      STUAGE = #{stuage,jdbcType=DECIMAL},
+      STUSEX = #{stusex,jdbcType=VARCHAR},
+      HEIGHT = #{height,jdbcType=VARCHAR},
+      WEIGHT = #{weight,jdbcType=VARCHAR}
+    where STUID = #{stuid,jdbcType=DECIMAL}
+  </update>
+</mapper>

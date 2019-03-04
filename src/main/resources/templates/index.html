@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<h1>欢迎来到川山甲</h1>
+<!--<label>请输入数字1 : </label>-->
+<!--<input type="number" id="num1">-->
+<!--</br>-->
+<!--<label>请输入数字2 : </label>-->
+<!--<input type="number" id="num2">-->
+<!--</br>-->
+<!--&lt;!&ndash; 按钮用来请求后台的数据 &ndash;&gt;-->
+<!--<button id="request">点我请求后台的数据</button>-->
+<!--&lt;!&ndash; 设置一些操作 &ndash;&gt;-->
+<!--<script>-->
+<!--//点击按钮后向后台发起请求-->
+<!--$("#request").click(function () {-->
+<!--$.ajax({-->
+<!--type: "post",-->
+<!--url: "http://192.168.1.101:8080/MineTest/sum.do",-->
+<!--data: {//上传参数-->
+<!--num1: $("#num1").val(),-->
+<!--num2: $("#num2").val()-->
+<!--},-->
+<!--dataType: "text",//数据格式-->
+<!--success: function (data) {-->
+<!--console.log(data)-->
+<!--},-->
+<!--error: function (jqObj) {-->
+<!--console.log(jqObj.status)-->
+<!--}-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+<lable>请输入第一个数字:</lable>
+<input id="num1">
+<br>
+<lable>请输入第二个数字:</lable>
+<input id="num2">
+<button id="btn">请求后台</button>
+<script>
+    $("#btn").click(function(){
+        $.ajax({
+            url:"http://localhost:8083/student/reckon",
+            type:"post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                num1:$("#num1").val(),
+                num2:$("#num2").val()
+            })
+            ,success:function(result){
+                alert(result);
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>录制视频</title>
+    <script src="../static/js/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/record.css">
+</head>
+<body>
+<div class="top">
+    <video id="video" autoplay muted controls></video>
+</div>
+
+</body>
+<script>
+    var contros = {video: true, audio: true}
+
+    function success(stream) {
+        video.srcObject = stream;
+    }
+
+    function error(e) {
+        alert(e.message + "---" + e.name);
+    }
+
+    //调用摄像头成功 就打开 失败就弹出消息
+    navigator.mediaDevices.getUserMedia(contros).then(success).catch(error);
+
+</script>
+</html>
