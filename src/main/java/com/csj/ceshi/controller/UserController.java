@@ -1,5 +1,7 @@
 package com.csj.ceshi.controller;
 
+import com.csj.ceshi.dao.MongodbDao;
+import com.csj.ceshi.pojo.SysUser;
 import com.csj.ceshi.pojo.User;
 import com.csj.ceshi.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -15,8 +17,10 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MongodbDao mongodbDao;
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public List<User> show(Model model) {
         return userService.getUserList();
     }
@@ -27,7 +31,7 @@ public class UserController {
         userService.saveUser(user);
     }
 
-    @RequestMapping(value = "get/{id}")
+    @RequestMapping(value = "get/{id}",method = RequestMethod.GET)
     public User getUserById(@PathVariable("id") Integer id) {
         return userService.getUserById(id);
     }
@@ -37,13 +41,16 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping("/showString")
+    @RequestMapping(value = "/showString",method = RequestMethod.GET)
     public String showString() {
         String a = "aafdsf";
         return a;
     }
-
-    public static void main(String[] args) {
-        System.out.println("agdsgds");
+    @RequestMapping(value = "/saveUser",method = RequestMethod.POST)
+    public String saveUser(@RequestBody SysUser sysUser){
+        if(sysUser!=null){
+          mongodbDao.save(sysUser);
+        }
+        return "添加成功";
     }
 }
