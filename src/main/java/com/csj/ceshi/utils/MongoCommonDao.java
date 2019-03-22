@@ -11,14 +11,15 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-
+@Repository
 public abstract class MongoCommonDao<T> {
 
     /**
@@ -26,6 +27,9 @@ public abstract class MongoCommonDao<T> {
      */
     private static final int DEFAULT_SKIP = 1;
     private static final int DEFAULT_LIMIT = 20;
+    //排序规则 1 升序 -1 降序
+    private static final String ASC_ENDING="1";
+    private static final String DESC_ENDING="-1";
 
     /**
      * spring-mongodb　集成操作类
@@ -281,13 +285,13 @@ public abstract class MongoCommonDao<T> {
         Sort sort = null;
         if (StringUtils.isNotBlank(sortStatus)) {
             //1 升序 -1 降序
-            if (sortStatus.equals("1")) {
+            if (sortStatus.equals(ASC_ENDING)) {
                 sort = new Sort(Sort.Direction.ASC,(content));
-            } else if (sortStatus.equals("-1")) {
+            } else if (sortStatus.equals(DESC_ENDING)) {
                 sort = new Sort(Sort.Direction.DESC,(content));
             }
+            query.with(sort);
         }
-        query.with(sort);
         //获取分页总数
         Long total = this.count(query);
         //分页信息处理
