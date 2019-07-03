@@ -3,6 +3,7 @@ package com.csj.ceshi.controller;
 import com.csj.ceshi.dao.StdSkuProductDao;
 import com.csj.ceshi.pojo.StdSkuProduct;
 import com.csj.ceshi.utils.Page;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.junit.platform.commons.util.StringUtils;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@Api(value = "商品controller",tags = {"商品中心接口"})
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
@@ -32,8 +34,8 @@ public class ProductController {
         if(StringUtils.isNotBlank(stdProductNo)){
             parames.put("stdProductNo",stdProductNo);
         }
-        Page<StdSkuProduct> productPage=stdSkuProductDao.findPage(pageNum,pageSize,parames);
-        return productPage;
+        Page<StdSkuProduct> spupage =stdSkuProductDao.findPage(pageNum,pageSize,parames);
+        return spupage;
     }
 
 }

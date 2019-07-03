@@ -1,8 +1,11 @@
 package com.csj.ceshi.test;
 
+import com.csj.ceshi.pojo.Student;
+import com.csj.ceshi.pojo.User;
 import org.springframework.beans.BeanUtils;
 
 import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TestAlgorithm {
@@ -37,13 +40,13 @@ public class TestAlgorithm {
 //        for (int i = 0; i <list.size() ; i++) {
 //            System.out.println(list.get(i));
 //        }
-        Map<String,Object> map=new HashMap<>();
-        map.put("a","A");
-        map.put("b","B");
-        map.put("c","C");
-        map.put("d","D");
-        System.out.println(map.entrySet());
-        System.out.println(map.keySet());
-        System.out.println(map.values());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String s = sdf.format(new Date()) + "0001";
+        Long l = Long.parseLong(s);
+        System.out.println(l);
+        System.out.println(TestEnum.一般账户.getStatus());
+        System.out.println(Double.valueOf("0.111"));
+        Student student = new Student();
+
     }
 }
